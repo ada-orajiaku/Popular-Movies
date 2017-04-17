@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         mMovieRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         mMovieRecyclerView.setHasFixedSize(true);
 
-        FetchMovies(SORT_BY_TAG,Helper.getMetaData(this,SORT_BY_POPULARITY));
+        FetchMovies(SORT_BY_TAG,this.getString(R.string.sort_by_popularity));
     }
 
     private void FetchMovies(String param, String url){
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, movie.getTitle(), Toast.LENGTH_LONG).show();
 
                             Intent intent = new Intent(context, MovieDetailActivity.class);
-                            intent.putExtra("com.example.android.popularmovies.Movie", movie);
+                            intent.putExtra(context.getString(R.string.movie_package_name), movie);
                             startActivity(intent);
                         }
                     });
@@ -91,12 +91,12 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_sort_by_most_popular) {
             Toast.makeText(this,R.string.notification_sort_by_most_popular,Toast.LENGTH_LONG).show();
-            FetchMovies(SORT_BY_TAG,Helper.getMetaData(this,SORT_BY_POPULARITY));
+            FetchMovies(SORT_BY_TAG,this.getString(R.string.sort_by_popularity));
             return true;
         }
         if (id == R.id.action_sort_by_top_rated) {
             Toast.makeText(this,R.string.notification_sort_by_top_rated,Toast.LENGTH_LONG).show();
-            FetchMovies(SORT_BY_TAG,Helper.getMetaData(this,SORT_BY_RATINGS));
+            FetchMovies(SORT_BY_TAG,this.getString(R.string.sort_by_ratings));
             return true;
         }
 

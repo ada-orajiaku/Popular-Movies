@@ -32,7 +32,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         TextView moviePlot = (TextView) findViewById(R.id.movie_plot_synopsis);
 
         Bundle bundle = getIntent().getExtras();
-        Movie movie = bundle.getParcelable("com.example.android.popularmovies.Movie");
+        Movie movie = bundle.getParcelable(this.getString(R.string.movie_package_name));
 
         if (movie != null) {
 

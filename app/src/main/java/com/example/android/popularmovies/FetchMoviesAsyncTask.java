@@ -1,6 +1,7 @@
 package com.example.android.popularmovies;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 
@@ -69,9 +70,9 @@ public class FetchMoviesAsyncTask extends AsyncTask<String, Void, Movie[]> {
         String movieJsonString = null;
         BufferedReader reader = null;
 
-        Uri uri = Uri.parse(Helper.getMetaData(context, BASE_URL)).buildUpon()
+        Uri uri = Uri.parse(context.getString(R.string.api_base_url)).buildUpon()
                 .appendQueryParameter(params[0], params[1])
-                .appendQueryParameter(API_KEY, Helper.getMetaData(context,API_KEY))
+                .appendQueryParameter(API_KEY, context.getString(R.string.api_key))
                 .build();
 
         try {

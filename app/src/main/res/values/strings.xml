@@ -11,6 +11,11 @@
     <string name="movie_average_rating_text">Average Rating:</string>
     <string name="movie_overview_text">Plot: </string>
     <string name="default_string_text">This is default text. Hopefully it changes.</string>
+    <string name="api_base_url">http://api.themoviedb.org/3/discover/movie/</string>
+    <string name="sort_by_popularity">popularity.desc</string>
+    <string name="sort_by_ratings">vote_average.desc</string>
+    <string name="image_base_url">http://image.tmdb.org/t/p/w185/</string>
+    <string name="movie_package_name">com.example.android.popularmovies.Movie</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
