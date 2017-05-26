@@ -3,30 +3,38 @@ package com.example.android.popularmovies;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
+import android.view.View;
 import android.widget.Toast;
+
+import com.example.android.popularmovies.helpers.NetworkUtil;
+import com.example.android.popularmovies.model.Movie;
+import com.example.android.popularmovies.model.MovieResponse;
+import com.example.android.popularmovies.network.ApiInterface;
+import com.example.android.popularmovies.network.FetchMoviesAsyncTask;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "";
     private final Context context = this;
     private MovieAdapter mAdapter;
     private RecyclerView mMovieRecyclerView;
-    private ArrayList<Movie> movieArrayList = new ArrayList<Movie>();
+    private List<Movie> movieArrayList = new ArrayList<Movie>();
     final String SORT_BY_TAG = "sort_by";
     final String SORT_BY_POPULARITY = "sort_by_popularity";
     final String SORT_BY_RATINGS = "sort_by_ratings";
@@ -51,13 +59,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void FetchMovies(String param, String url){
-        FetchMoviesAsyncTask moviesTask = new FetchMoviesAsyncTask(this,new FetchMoviesAsyncTask.AsyncTaskCallBack() {
+
+        ApiInterface service = NetworkUtil.getClient(context).create(ApiInterface.class);
+        
+        Call<MovieResponse> call;
+        if (param == SORT_BY_RATINGS) {
+            call = service.getTopRatedMovies(getString(R.string.api_key));
+        } else {
+            call = service.getPopularMovies(getString((R.string.api_key)));
+        }
+
+     //   moviesLoader.setVisibility(View.VISIBLE);
+
+        call.enqueue(new Callback<MovieResponse>() {
             @Override
-            public void response(Movie[] movies) {
-                if (movies != null) {
-                    Collections.addAll(movieArrayList, movies);
-                    List<Movie> movieResponseList = new ArrayList<Movie>(Arrays.asList(movies));
-                    mAdapter = new MovieAdapter(context, movieResponseList);
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                int statusCode = response.code();
+                movieArrayList.clear();
+                movieArrayList = response.body().getResults();
+                if (movieArrayList != null && movieArrayList.size() > 0) {
+
+                    mAdapter = new MovieAdapter(context, movieArrayList);
                     mAdapter.setOnItemClickListener(new MovieAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(Movie movie) {
@@ -70,10 +92,18 @@ public class MainActivity extends AppCompatActivity {
                     });
                     mMovieRecyclerView.setAdapter(mAdapter);
                 }
+              //  moviesLoader.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                Log.e(TAG, t.getMessage());
+               // moviesLoader.setVisibility(View.INVISIBLE);
             }
         });
-        moviesTask.execute(param,url);
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

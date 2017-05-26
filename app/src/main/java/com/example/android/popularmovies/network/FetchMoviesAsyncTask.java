@@ -1,9 +1,11 @@
-package com.example.android.popularmovies;
+package com.example.android.popularmovies.network;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
+
+import com.example.android.popularmovies.R;
+import com.example.android.popularmovies.model.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,7 +13,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -32,11 +33,17 @@ public class FetchMoviesAsyncTask extends AsyncTask<String, Void, Movie[]> {
 
 
     private Movie[] deSearializeMovies(String movieJsonString) throws JSONException {
+
+        final String ID = "id";
         final String ORIGINAL_TITLE = "original_title";
         final String POSTER_PATH = "poster_path";
         final String OVERVIEW = "overview";
         final String VOTE_AVERAGE = "vote_average";
         final String RELEASE_DATE = "release_date";
+        final String BACKDROP_PATH = "backdrop_path";
+        final String POPULARITY = "popularity";
+        final String VOTE_COUNT = "vote_count";
+
 
         if (movieJsonString == null || "".equals(movieJsonString)) {
             return null;
@@ -47,14 +54,14 @@ public class FetchMoviesAsyncTask extends AsyncTask<String, Void, Movie[]> {
 
         Movie[] movies = new Movie[jsonArrayMovies.length()];
 
-        for (int i = 0; i < jsonArrayMovies.length(); i++) {
-            JSONObject object = jsonArrayMovies.getJSONObject(i);
-            movies[i] = new Movie(object.getString(ORIGINAL_TITLE),
-                    object.getString(POSTER_PATH),
-                    object.getString(OVERVIEW),
-                    object.getString(VOTE_AVERAGE),
-                    object.getString(RELEASE_DATE));
-        }
+//        for (int i = 0; i < jsonArrayMovies.length(); i++) {
+//            JSONObject object = jsonArrayMovies.getJSONObject(i);
+//            movies[i] = new Movie(object.getString(ORIGINAL_TITLE),
+//                    object.getString(POSTER_PATH),
+//                    object.getString(OVERVIEW),
+//                    object.getString(VOTE_AVERAGE),
+//                    object.getString(RELEASE_DATE));
+//        }
         return movies;
     }
 

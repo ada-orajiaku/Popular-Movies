@@ -6,13 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.android.popularmovies.model.Movie;
+import com.example.android.popularmovies.helpers.MetaDataUtil;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -62,7 +61,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(MovieViewHolder holder, final int position) {
         holder.movieTitle.setText(movieList.get(position).getTitle());
-        Picasso.with(context).load(Helper.getMetaData(context,IMAGE_BASE_URL)+movieList.get(position).getPosterPath()).into(holder.movieImage);
+        Picasso.with(context).load(MetaDataUtil.getMetaData(context,IMAGE_BASE_URL)+movieList.get(position).getPosterPath()).into(holder.movieImage);
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
