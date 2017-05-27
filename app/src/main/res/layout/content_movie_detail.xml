@@ -1,102 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.android.popularmovies.MovieDetailActivity"
+    tools:context="com.example.android.popularmovies.activities.MovieDetailActivity"
     tools:showIn="@layout/activity_movie_detail">
 
  <LinearLayout
+     android:id="@+id/content_layout"
      android:orientation="vertical"
      android:layout_width="match_parent"
      android:layout_height="wrap_content">
-     <ImageView
-         android:id="@+id/movie_poster"
-         android:layout_width="match_parent"
-         android:layout_height="100dp" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/movie_title_text"
-                android:textSize="20dp"
-                android:paddingRight="5dp"
-                android:layout_gravity="center_horizontal" />
+        android:layout_height="wrap_content">
+
+         <LinearLayout
+             android:orientation="vertical"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1">
+             <ImageView
+                 android:id="@+id/movie_poster"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content" />
+         </LinearLayout>
+
+         <LinearLayout
+             android:orientation="vertical"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:padding="10dp">
              <TextView
-                 android:id="@+id/movie_title"
+                 android:id="@+id/movie_release_date"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:text="@string/default_string_text"
-                 android:textSize="20dp"
-                 android:layout_gravity="center_horizontal"
-                 android:textStyle="bold"/>
+                 android:textSize="20sp"
+                 android:layout_marginBottom="10dp"/>
+             <TextView
+                 android:id="@+id/movie_vote_average"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:text="@string/default_string_text"
+                 android:textSize="14sp"
+                 android:layout_marginBottom="10dp"/>
+             <ImageButton
+                 android:id="@+id/favourite_button"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:src="@drawable/star_outline"
+                 android:contentDescription="@string/favorite_movie"
+                 android:background="@android:color/transparent"
+                 android:layout_marginLeft="50dp"
+                 android:maxWidth="@dimen/favorite_icon_size"/>
+         </LinearLayout>
+
         </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <TextView
+        android:id="@+id/movie_plot_synopsis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/movie_date_of_release_text"
-            android:textSize="20dp"
-            android:paddingRight="5dp"
-            android:layout_gravity="center_horizontal" />
-        <TextView
-            android:id="@+id/movie_release_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/default_string_text"
-            android:textSize="20dp" />
-    </LinearLayout>
+        android:text="@string/default_string_text"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/movie_average_rating_text"
-            android:textSize="20dp"
-            android:paddingRight="5dp"
-            android:layout_gravity="center_horizontal" />
-         <TextView
-             android:id="@+id/movie_vote_average"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:text="@string/default_string_text"
-             android:textSize="20dp"/>
-        </LinearLayout>
+     <android.support.design.widget.TabLayout
+         android:id="@+id/sliding_tabs"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         app:tabMode="fixed" />
+     <android.support.v4.view.ViewPager
+         android:id="@+id/viewpager"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:minHeight="500px">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/movie_overview_text"
-            android:textSize="20dp"
-            android:paddingRight="5dp"
-            android:layout_gravity="center_horizontal" />
-         <TextView
-             android:id="@+id/movie_plot_synopsis"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:text="@string/default_string_text"
-             android:textSize="20dp"
-             android:textStyle="italic"/>
-        </LinearLayout>
+         </android.support.v4.view.ViewPager>
  </LinearLayout>
+
+
 </android.support.v4.widget.NestedScrollView>

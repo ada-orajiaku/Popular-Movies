@@ -1,4 +1,4 @@
-package com.example.android.popularmovies;
+package com.example.android.popularmovies.helpers;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -10,7 +10,7 @@ import android.util.Log;
  * Created by adaobifrank on 4/16/17.
  */
 
-public class Helper{
+public class MetaDataUtil {
         public static String getMetaData(Context context, String name) {
             try {
                 ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
@@ -22,5 +22,5 @@ public class Helper{
             return null;
         }
 
-        private static final String TAG = "HELPER";
+        private static final String TAG = "MetaDataUtil";
 }
