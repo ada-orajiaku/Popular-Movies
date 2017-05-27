@@ -1,4 +1,4 @@
-package com.example.android.popularmovies.movie_review;
+package com.example.android.popularmovies.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,16 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.popularmovies.R;
-import com.example.android.popularmovies.dummy.DummyContent.DummyItem;
-import com.example.android.popularmovies.model.Review;
+import com.example.android.popularmovies.fragments.ReviewFragment;
+import com.example.android.popularmovies.models.Review;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link ReviewFragment.OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class MyMovieReviewRecyclerViewAdapter extends RecyclerView.Adapter<MyMovieReviewRecyclerViewAdapter.ViewHolder> {
 
     private final List<Review> mValues;
@@ -30,15 +25,15 @@ public class MyMovieReviewRecyclerViewAdapter extends RecyclerView.Adapter<MyMov
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_movie_review, parent, false);
+                .inflate(R.layout.fragment_review, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getContent());
-        holder.mContentView.setText(mValues.get(position).getAuthor());
+        holder.review = mValues.get(position);
+        holder.commentText.setText(mValues.get(position).getContent());
+       // holder.readMoreText.setText(mValues.get(position).getAuthor());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,10 +41,17 @@ public class MyMovieReviewRecyclerViewAdapter extends RecyclerView.Adapter<MyMov
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(holder.review);
                 }
             }
         });
+
+//        holder.readMoreText.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //TODO: go to webpage url here
+//            }
+//        });
     }
 
     @Override
@@ -59,20 +61,20 @@ public class MyMovieReviewRecyclerViewAdapter extends RecyclerView.Adapter<MyMov
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public Review mItem;
+        public final TextView commentText;
+       // public final TextView readMoreText;
+        public Review review;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            commentText = (TextView) view.findViewById(R.id.comment);
+           // readMoreText = (TextView) view.findViewById(R.id.read_more);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + commentText.getText() + "'";
         }
     }
 }

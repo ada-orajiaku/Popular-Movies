@@ -1,17 +1,14 @@
 package com.example.android.popularmovies.network;
 
-import com.example.android.popularmovies.model.Movie;
-import com.example.android.popularmovies.model.MovieResponse;
-import com.example.android.popularmovies.model.Review;
-import com.example.android.popularmovies.model.ReviewResponse;
-import com.example.android.popularmovies.model.Trailer;
-import com.example.android.popularmovies.model.TrailerResponse;
+import com.example.android.popularmovies.models.Movie;
+import com.example.android.popularmovies.models.MovieResponse;
+import com.example.android.popularmovies.models.ReviewResponse;
+import com.example.android.popularmovies.models.TrailerResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * Created by adaobifrank on 5/17/17.

@@ -10,5 +10,5 @@
     android:layout_marginRight="16dp"
     android:minHeight="300dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.example.android.popularmovies.movie_review.ReviewFragment"
-    tools:listitem="@layout/fragment_movie_review" />
+    tools:context="com.example.android.popularmovies.fragments.ReviewFragment"
+    tools:listitem="@layout/fragment_review" />

@@ -14,27 +14,27 @@ import android.support.annotation.Nullable;
  * Created by adaobifrank on 5/17/17.
  */
 
-public class DatabaseContentProvider extends ContentProvider {
+public class FavoriteDbProvider extends ContentProvider {
 
     public static final int CODE_FAVOURITE = 123;
     public static final int CODE_FAVOURITE_BY_ID = 125;
 
     private static final UriMatcher sUriMatcher = builderUriMatcher();
-    private DatabaseHelper dbHelper;
+    private FavoriteDbHelper dbHelper;
 
     public static UriMatcher builderUriMatcher(){
         final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        final String authority = DatabaseContract.CONTENT_AUTHORITY;
+        final String authority = FavoriteDbContract.CONTENT_AUTHORITY;
 
-        uriMatcher.addURI(authority,DatabaseContract.PATH_FAVOURITE,CODE_FAVOURITE);
-        uriMatcher.addURI(authority,DatabaseContract.PATH_FAVOURITE + "/#",CODE_FAVOURITE_BY_ID);
+        uriMatcher.addURI(authority, FavoriteDbContract.PATH_FAVOURITE,CODE_FAVOURITE);
+        uriMatcher.addURI(authority, FavoriteDbContract.PATH_FAVOURITE + "/#",CODE_FAVOURITE_BY_ID);
 
         return uriMatcher;
     }
 
     @Override
     public boolean onCreate() {
-        dbHelper = new DatabaseHelper(getContext());
+        dbHelper = new FavoriteDbHelper(getContext());
         return true;
     }
 
@@ -47,11 +47,11 @@ public class DatabaseContentProvider extends ContentProvider {
                 String movieId = uri.getLastPathSegment();
                 String[] selectionArguments = new String[]{movieId};
 
-                cursor = dbHelper.getReadableDatabase().query(DatabaseContract.FavouriteEntry.TABLE_NAME,projection,
-                        DatabaseContract.FavouriteEntry.MOVIE_ID +" = ?",selectionArguments,null,null,null);
+                cursor = dbHelper.getReadableDatabase().query(FavoriteDbContract.FavouriteEntry.TABLE_NAME,projection,
+                        FavoriteDbContract.FavouriteEntry.MOVIE_ID +" = ?",selectionArguments,null,null,null);
                 break;
             case CODE_FAVOURITE:
-                cursor = dbHelper.getReadableDatabase().query(DatabaseContract.FavouriteEntry.TABLE_NAME,
+                cursor = dbHelper.getReadableDatabase().query(FavoriteDbContract.FavouriteEntry.TABLE_NAME,
                         projection,selection,selectionArgs,null,null,sortOrder);
                 break;
             default:
@@ -75,9 +75,9 @@ public class DatabaseContentProvider extends ContentProvider {
 
         switch (sUriMatcher.match(uri)){
             case CODE_FAVOURITE:
-                long id = dbHelper.getWritableDatabase().insert(DatabaseContract.FavouriteEntry.TABLE_NAME,null,contentValues);
+                long id = dbHelper.getWritableDatabase().insert(FavoriteDbContract.FavouriteEntry.TABLE_NAME,null,contentValues);
                 if(id > 0){
-                    returnUri = ContentUris.withAppendedId(DatabaseContract.FavouriteEntry.CONTENT_URI,id);
+                    returnUri = ContentUris.withAppendedId(FavoriteDbContract.FavouriteEntry.CONTENT_URI,id);
                 }else {
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 }
@@ -100,11 +100,11 @@ public class DatabaseContentProvider extends ContentProvider {
                 String movieId = uri.getLastPathSegment();
                 String[] whereArgs = new String[]{movieId};
 
-                numRowsDeleted = dbHelper.getWritableDatabase().delete(DatabaseContract.FavouriteEntry.TABLE_NAME,
-                        DatabaseContract.FavouriteEntry.MOVIE_ID+" =?", whereArgs);
+                numRowsDeleted = dbHelper.getWritableDatabase().delete(FavoriteDbContract.FavouriteEntry.TABLE_NAME,
+                        FavoriteDbContract.FavouriteEntry.MOVIE_ID+" =?", whereArgs);
                 break;
             case CODE_FAVOURITE:
-                numRowsDeleted = dbHelper.getWritableDatabase().delete(DatabaseContract.FavouriteEntry.TABLE_NAME,
+                numRowsDeleted = dbHelper.getWritableDatabase().delete(FavoriteDbContract.FavouriteEntry.TABLE_NAME,
                         selection,selectionArgs);
                 break;
             default:
@@ -132,7 +132,7 @@ public class DatabaseContentProvider extends ContentProvider {
                 int rowsInserted = 0;
                 try {
                     for (ContentValues value : values){
-                        long _id = db.insert(DatabaseContract.FavouriteEntry.TABLE_NAME,null,value);
+                        long _id = db.insert(FavoriteDbContract.FavouriteEntry.TABLE_NAME,null,value);
                         if(_id != -1){
                             rowsInserted++;
                         }

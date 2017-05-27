@@ -1,4 +1,4 @@
-package com.example.android.popularmovies.movie_review;
+package com.example.android.popularmovies.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.popularmovies.R;
-import com.example.android.popularmovies.model.Review;
+import com.example.android.popularmovies.models.Trailer;
+import com.example.android.popularmovies.adapters.MyTrailerRecyclerViewAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,29 +22,26 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ReviewFragment extends Fragment {
+public class TrailerFragment extends Fragment {
 
     // TODO: Customize parameter argument names
-    private static final String TAG = ReviewFragment.class.getSimpleName();
+    private static final String TAG = TrailerFragment.class.getSimpleName();
     // TODO: Customize parameters
     private OnListFragmentInteractionListener mListener;
 
     private RecyclerView recyclerView;
-    private List<Review> reviewList;
 
+    public void setMovieTrailers(List<Trailer> movieTrailers) {
+        this.movieTrailers = movieTrailers;
+    }
+
+    private List<Trailer> movieTrailers = new ArrayList<Trailer>();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-
-    // TODO: Customize parameter initialization
-    public static ReviewFragment newInstance(List<Review> reviews) {
-        ReviewFragment fragment = new ReviewFragment();
-        if(reviews != null)
-            fragment.reviewList = reviews;
-        return fragment;
-    }
+    public TrailerFragment(){}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,20 +51,19 @@ public class ReviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_movie_review_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_trailer_list, container, false);
         recyclerView = (RecyclerView) view;
 
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            this.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            if(reviewList != null)
-                recyclerView.setAdapter(new MyMovieReviewRecyclerViewAdapter(reviewList, mListener));
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
         }
+        if(movieTrailers != null)
+            recyclerView.setAdapter(new MyTrailerRecyclerViewAdapter(movieTrailers, mListener));
 
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -96,6 +94,6 @@ public class ReviewFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(Review review);
+        void onListFragmentInteraction(Trailer trailer);
     }
 }

@@ -1,12 +1,9 @@
-package com.example.android.popularmovies.model;
+package com.example.android.popularmovies.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by adaobifrank on 4/12/17.

@@ -1,6 +1,4 @@
-package com.example.android.popularmovies.model;
-
-import android.database.Observable;
+package com.example.android.popularmovies.models;
 
 import java.util.List;
 

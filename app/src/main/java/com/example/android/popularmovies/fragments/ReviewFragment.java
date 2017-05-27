@@ -1,4 +1,4 @@
-package com.example.android.popularmovies.movie_trailer;
+package com.example.android.popularmovies.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.popularmovies.R;
-import com.example.android.popularmovies.model.Trailer;
+import com.example.android.popularmovies.models.Review;
+import com.example.android.popularmovies.adapters.MyMovieReviewRecyclerViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,30 +21,34 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class TrailerFragment extends Fragment {
+public class ReviewFragment extends Fragment {
 
     // TODO: Customize parameter argument names
-    private static final String TAG = TrailerFragment.class.getSimpleName();
+    private static final String TAG = ReviewFragment.class.getSimpleName();
     // TODO: Customize parameters
     private OnListFragmentInteractionListener mListener;
 
     private RecyclerView recyclerView;
-    private List<Trailer> movieTrailers = new ArrayList<Trailer>();
+
+    public void setReviewList(List<Review> reviewList) {
+        this.reviewList = reviewList;
+    }
+
+    private List<Review> reviewList;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
 
-    // TODO: Customize parameter initialization
-    public static TrailerFragment newInstance(List<Trailer> mMovieTrailers, OnListFragmentInteractionListener mListener) {
-        TrailerFragment fragment = new TrailerFragment();
-        if(mMovieTrailers != null)
-            fragment.movieTrailers = mMovieTrailers;
-        fragment.mListener = mListener;
-
-        return fragment;
-    }
+//    // TODO: Customize parameter initialization
+//    public static ReviewFragment newInstance(List<Review> reviews) {
+//        ReviewFragment fragment = new ReviewFragment();
+//        if(reviews != null)
+//            fragment.reviewList = reviews;
+//        return fragment;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,29 +58,30 @@ public class TrailerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_trailer_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_review_list, container, false);
         recyclerView = (RecyclerView) view;
 
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            if(reviewList != null)
+                recyclerView.setAdapter(new MyMovieReviewRecyclerViewAdapter(reviewList, mListener));
         }
-        if(movieTrailers != null)
-            recyclerView.setAdapter(new MyTrailerRecyclerViewAdapter(movieTrailers, mListener));
 
         return view;
     }
 
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof OnListFragmentInteractionListener) {
-//            mListener = (OnListFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnListFragmentInteractionListener");
-//        }
+        if (context instanceof OnListFragmentInteractionListener) {
+            mListener = (OnListFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnListFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -97,6 +102,6 @@ public class TrailerFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(Trailer trailer);
+        void onListFragmentInteraction(Review review);
     }
 }
