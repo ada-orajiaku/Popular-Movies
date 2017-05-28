@@ -1,11 +1,13 @@
 <resources>
+    <string name="api_base_url">http://api.themoviedb.org/3/movie/</string>
+
     <string name="app_name">Popular Movies</string>
     <string name="action_sort_by_most_popular">Most Popular</string>
     <string name="action_sort_by_top_rated">Top Rated</string>
     <string name="action_sort_by_favorites">Favorites</string>
-    
-    <string name="api_base_url">http://api.themoviedb.org/3/movie/</string>
+
     <string name="movie_package_name">com.example.android.popularmovies.model.Movie</string>
+    <string name="api_key">2fc1bb0c92d237c78744147e958d3ed7</string>
 
     <string name="poplar_movies_preference">Popular Movies Preference</string>
 

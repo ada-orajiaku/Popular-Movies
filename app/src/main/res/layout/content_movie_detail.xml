@@ -36,21 +36,21 @@
              android:layout_width="0dp"
              android:layout_height="wrap_content"
              android:layout_weight="1"
-             android:padding="10dp">
+             android:padding="@dimen/regular_padding">
              <TextView
                  android:id="@+id/movie_release_date"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:text="@string/default_string_text"
-                 android:textSize="20sp"
-                 android:layout_marginBottom="10dp"/>
+                 tools:text="@string/default_string_text"
+                 android:textSize="@dimen/large_text_size"
+                 android:layout_marginBottom="@dimen/regular_margin"/>
              <TextView
                  android:id="@+id/movie_vote_average"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:text="@string/default_string_text"
-                 android:textSize="14sp"
-                 android:layout_marginBottom="10dp"/>
+                 tools:text="@string/default_string_text"
+                 android:textSize="@dimen/medium_text_size"
+                 android:layout_marginBottom="@dimen/regular_margin"/>
              <ImageButton
                  android:id="@+id/favourite_button"
                  android:layout_width="wrap_content"
@@ -58,8 +58,7 @@
                  android:src="@drawable/star_outline"
                  android:contentDescription="@string/favorite_movie"
                  android:background="@android:color/transparent"
-                 android:layout_marginLeft="50dp"
-                 android:maxWidth="@dimen/favorite_icon_size"/>
+                 android:layout_marginLeft="@dimen/movie_detail_image_margin_left" />
          </LinearLayout>
 
         </LinearLayout>
@@ -68,11 +67,11 @@
         android:id="@+id/movie_plot_synopsis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/default_string_text"
-        android:textSize="14sp"
+        tools:text="@string/default_string_text"
+        android:textSize="@dimen/medium_text_size"
         android:textStyle="italic"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginTop="@dimen/regular_margin"
+        android:layout_marginBottom="@dimen/regular_margin"/>
 
      <android.support.design.widget.TabLayout
          android:id="@+id/sliding_tabs"
@@ -82,8 +81,7 @@
      <android.support.v4.view.ViewPager
          android:id="@+id/viewpager"
          android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:minHeight="500px">
+         android:layout_height="wrap_content">
 
          </android.support.v4.view.ViewPager>
  </LinearLayout>

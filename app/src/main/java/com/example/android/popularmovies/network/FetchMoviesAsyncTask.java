@@ -82,11 +82,15 @@ public class FetchMoviesAsyncTask extends AsyncTask<String, Void, Movie[]> {
                 .appendQueryParameter(API_KEY, context.getString(R.string.api_key))
                 .build();
 
+
+
         try {
             URL url = new URL(uri.toString());
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
+            urlConnection.setConnectTimeout(5000);
+            urlConnection.setReadTimeout(10000);
 
             BufferedReader bufferedReader = null;
 

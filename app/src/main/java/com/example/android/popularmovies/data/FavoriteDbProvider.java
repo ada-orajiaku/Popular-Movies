@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 /**
  * Created by adaobifrank on 5/17/17.
@@ -16,6 +17,7 @@ import android.support.annotation.Nullable;
 
 public class FavoriteDbProvider extends ContentProvider {
 
+    private static final String TAG = FavoriteDbProvider.class.getSimpleName();
     public static final int CODE_FAVOURITE = 123;
     public static final int CODE_FAVOURITE_BY_ID = 125;
 
@@ -71,7 +73,7 @@ public class FavoriteDbProvider extends ContentProvider {
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues) {
 
-        Uri returnUri;
+        Uri returnUri = null;
 
         switch (sUriMatcher.match(uri)){
             case CODE_FAVOURITE:
@@ -79,11 +81,13 @@ public class FavoriteDbProvider extends ContentProvider {
                 if(id > 0){
                     returnUri = ContentUris.withAppendedId(FavoriteDbContract.FavouriteEntry.CONTENT_URI,id);
                 }else {
-                    throw new android.database.SQLException("Failed to insert row into " + uri);
+                    Log.e(TAG,"Failed to insert row into " + uri);
+                    //throw new android.database.SQLException("Failed to insert row into " + uri);
                 }
                 break;
             default:
-                throw new UnsupportedOperationException("Unknown uri : "+uri);
+                Log.e(TAG,"Unknown uri : "+uri);
+                //throw new UnsupportedOperationException("Unknown uri : "+uri);
         }
         getContext().getContentResolver().notifyChange(uri,null);
         return returnUri;
@@ -108,7 +112,8 @@ public class FavoriteDbProvider extends ContentProvider {
                         selection,selectionArgs);
                 break;
             default:
-                throw new UnsupportedOperationException("Unknown uri : "+uri);
+                Log.e(TAG,"Unknown uri : "+uri);
+                //throw new UnsupportedOperationException("Unknown uri : "+uri);
         }
 
         if(numRowsDeleted != 0){

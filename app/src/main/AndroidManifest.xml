@@ -25,6 +25,7 @@
             android:value="http://image.tmdb.org/t/p/w185/" />
 
         <activity
+            android:launchMode="singleTop"
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
